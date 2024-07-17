@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "orcrist-addon",
+  "version": "${version}",
+  "name": "Orcrist",
+  "description": "Orcrist Addon instead of client.",
+  "authors": [
+    "Blackout180"
+  ],
+  "contact": {
+    "repo": "https://github.com/MeteorDevelopment/meteor-addon-template"
+  },
+  "icon": "assets/orcrist/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "meteor": [
+      "me.blackout.orcrist.OrcristAddon"
+    ]
+  },
+  "mixins": [
+    "orcrist-addon.mixins.json"
+  ],
+  "custom": {
+    "meteor-client:color": "160,107,244"
+  },
+  "depends": {
+    "java": ">=21",
+    "minecraft": ">=${mc_version}",
+    "meteor-client": "*"
+  }
+}
