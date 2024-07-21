@@ -6,10 +6,10 @@ import me.blackout.orcrist.features.commands.InfoCommand;
 import me.blackout.orcrist.features.hud.*;
 import me.blackout.orcrist.features.module.combat.*;
 import com.mojang.logging.LogUtils;
+import me.blackout.orcrist.features.module.misc.AutoRespawnPlus;
 import me.blackout.orcrist.features.module.misc.BetterChatPlus;
 import me.blackout.orcrist.features.module.misc.DiscordRPC;
 import me.blackout.orcrist.features.module.misc.PingSpoof;
-import me.blackout.orcrist.features.module.movement.FlightPlus;
 import me.blackout.orcrist.features.module.movement.elytrabot.ElytraBot;
 import me.blackout.orcrist.features.module.movement.speed.SpeedPlus;
 import me.blackout.orcrist.features.module.render.KillEffects;
@@ -78,6 +78,7 @@ public class OrcristAddon extends MeteorAddon {
     }
 
     private void initMisc() {
+        Modules.get().add(new AutoRespawnPlus());
         Modules.get().add(new BetterChatPlus());
         Modules.get().add(new DiscordRPC());
         Modules.get().add(new PingSpoof());
@@ -85,8 +86,7 @@ public class OrcristAddon extends MeteorAddon {
 
     private void initMovement() {
         Modules.get().add(new ElytraBot());
-        Modules.get().add(new FlightPlus());
-        Modules.get().add(new SpeedPlus());
+        //Modules.get().add(new SpeedPlus());
     }
 
     private void initRender() {
@@ -108,6 +108,7 @@ public class OrcristAddon extends MeteorAddon {
         Hud.get().register(KDRHud.INFO);
         Hud.get().register(KillsHud.INFO);
         Hud.get().register(KillStreakHud.INFO);
+        Hud.get().register(LogoHud.INFO);
         //Hud.get().register(NotificationHud.INFO);
         Hud.get().register(PlayTimeHud.INFO);
     }

@@ -12,13 +12,7 @@ import meteordevelopment.meteorclient.systems.hud.HudRenderer;
 import meteordevelopment.meteorclient.systems.hud.elements.TextHud;
 
 public class KillsHud extends HudElement {
-    private SettingGroup sgGeneral = settings.getDefaultGroup();
-
-    // General
-    public final Setting<Boolean> countSlashKill = sgGeneral.add(new BoolSetting.Builder().name("/kill").description("Whether to count /kill or not.").defaultValue(true).build());
-
     public static final HudElementInfo<KillsHud> INFO = new HudElementInfo<>(OrcristAddon.HUD_GROUP, "Kills", "Shows your total amount of deaths.", KillsHud::new);
-
     public KillsHud() {
         super(INFO);
     }

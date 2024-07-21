@@ -8,6 +8,7 @@ import meteordevelopment.meteorclient.settings.BoolSetting;
 import meteordevelopment.meteorclient.settings.ColorSetting;
 import meteordevelopment.meteorclient.settings.Setting;
 import meteordevelopment.meteorclient.settings.SettingGroup;
+import meteordevelopment.meteorclient.systems.hud.Alignment;
 import meteordevelopment.meteorclient.systems.hud.HudElement;
 import meteordevelopment.meteorclient.systems.hud.HudElementInfo;
 import meteordevelopment.meteorclient.systems.hud.HudRenderer;
@@ -57,13 +58,13 @@ public class NotificationHud extends HudElement {
             }
         }
 
-        box.setSize(width, height);
+        setSize(width, height);
     }
 
     @Override
     public void render(HudRenderer renderer) {
-        double x = box.x;
-        double y = box.y;
+        double x = getX();
+        double y = getY();
         removeMessage();
 
         int w = getWidth();
@@ -71,26 +72,27 @@ public class NotificationHud extends HudElement {
 
         if (isInEditor()) {
             renderer.text("Notifications", x, y, textColor.get(), true);
+
             if (side.get() && background.get()) renderer.quad(x - 5, y, w + 10, TextRenderer.get().getHeight(), sideColor.get());
             if (background.get()) renderer.quad(x, y, w, TextRenderer.get().getHeight(), backgroundColor.get());
-            Renderer2D.COLOR.render(null);
+
             return;
         }
 
         int i = 0;
         if (messages.isEmpty()) {
             String t = "";
-            renderer.text(t, x + renderer.textWidth(t), y, textColor.get(), true);
+            renderer.text(t, x + alignX(renderer.textWidth(t), Alignment.Center), y, textColor.get(), true);
         } else {
             for (String mes: messages) {
                 if (!messages.isEmpty()){
-                    Renderer2D.COLOR.begin();
+
                     if (side.get() && background.get()) renderer.quad(x - 5, y, TextRenderer.get().getWidth(mes) + 10, h, sideColor.get());
                     if (background.get()) renderer.quad(x, y, TextRenderer.get().getWidth(mes), h, backgroundColor.get());
-                    Renderer2D.COLOR.render(null);
+
                 }
 
-                renderer.text(mes, x + renderer.textWidth(mes), y, textColor.get(), true);
+                renderer.text(mes, x + alignX(renderer.textWidth(mes), Alignment.Center), y, textColor.get(), true);
                 y += renderer.textHeight();
                 if (i > 0) y += 2;
                 i++;

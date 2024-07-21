@@ -17,12 +17,13 @@ public class InfoCommand extends Command {
     public void build(LiteralArgumentBuilder<CommandSource> builder) {
         builder.executes(context -> {
             info("-------Stats-------");
-            info("     PlayTime: " + Maths.timeElapsed(Stats.playtime()));
-            info("    KillStreak: " + Stats.killstreak);
-            info("    HighScore: " + Stats.highscore);
-            info("     Deaths: " + Stats.death);
-            info("      Kills: " + Stats.kills);
-            info("       KD: " + Stats.getKD());
+            info("      PlayTime: " + Maths.timeElapsed(Stats.playtime()));
+            info("     KillStreak: " + Stats.killstreak);
+            info("     HighScore: " + Stats.highscore);
+            info("      Deaths: " + Stats.death);
+            info("       Kills: " + Stats.kills);
+            info("        KD: " + Stats.getKD());
+
             return SINGLE_SUCCESS;
         });
     }

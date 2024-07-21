@@ -1,6 +1,8 @@
 package me.blackout.orcrist.utils.player;
 
+import me.blackout.orcrist.features.hud.DeathHud;
 import me.blackout.orcrist.features.hud.KillsHud;
+import me.blackout.orcrist.features.hud.NotificationHud;
 import meteordevelopment.meteorclient.MeteorClient;
 import meteordevelopment.meteorclient.events.game.GameJoinedEvent;
 import meteordevelopment.meteorclient.events.game.GameLeftEvent;
@@ -15,8 +17,10 @@ import meteordevelopment.meteorclient.utils.player.InvUtils;
 import meteordevelopment.orbit.EventHandler;
 import meteordevelopment.orbit.EventPriority;
 import net.minecraft.client.gui.screen.DeathScreen;
+import net.minecraft.entity.Entity;
 import net.minecraft.item.Items;
 import net.minecraft.network.packet.c2s.play.CommandExecutionC2SPacket;
+import net.minecraft.network.packet.s2c.play.EntityStatusS2CPacket;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
@@ -35,7 +39,7 @@ public class Stats {
 
     private static String previousServer, currentServer;
 
-    private static boolean sentChatPacket;
+    private static boolean sentChatPacket, deathScreen;
 
     private static int ticksPassed;
     public static int crystalsPerSec;
@@ -62,8 +66,11 @@ public class Stats {
     private static void onScreen(OpenScreenEvent event) {
         if (!(event.screen instanceof DeathScreen)) return;
 
+        deathScreen = true;
+
         killstreak = 0;
         highscore = killstreak;
+
         if (!sentChatPacket) death++; else sentChatPacket = false;
     }
 
@@ -87,9 +94,20 @@ public class Stats {
     @EventHandler
     private static void onPacketSent(PacketEvent.Sent event) {
         if (!(event.packet instanceof CommandExecutionC2SPacket cmd)) return;
-        if (new KillsHud().countSlashKill.get()) return;
+        if (!(new DeathHud().countSuicide.get())) return;
 
         sentChatPacket = cmd.command().contains("kill");
+    }
+
+    @EventHandler
+    private static void onPacketReceive(PacketEvent.Receive event) {
+        if (!(event.packet instanceof EntityStatusS2CPacket entity)) return;
+        if (entity.getStatus() != 3) return;
+
+        if (!sentChatPacket) {
+            if (entity.getEntity(mc.world) == mc.player && !deathScreen) death++;
+            sentChatPacket = true;
+        }
     }
 
     // Message Receive
