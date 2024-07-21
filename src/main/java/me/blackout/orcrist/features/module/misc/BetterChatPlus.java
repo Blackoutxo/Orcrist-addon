@@ -68,9 +68,9 @@ public class BetterChatPlus extends Module {
             rainbowHue1 += rainbowSpeed.get() * 0.45992073;
             if (rainbowHue1 > 1.0) {
                 --rainbowHue1;
-            } else if (rainbowHue1 < -1.0) {
+            } else if (rainbowHue1 < -1.0)
                 ++rainbowHue1;
-            }
+
 
             rainbowHue2 = rainbowHue1;
             List<ChatHudLine.Visible> visible = ((ChatHudAccessor) mc.inGameHud.getChatHud()).getVisibleMessages();
