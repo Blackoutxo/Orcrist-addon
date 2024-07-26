@@ -57,6 +57,12 @@ import static me.blackout.orcrist.features.module.movement.elytrabot.botutil.Mai
 import static me.blackout.orcrist.features.module.movement.elytrabot.botutil.MainBotUtils.useItem;
 import static meteordevelopment.meteorclient.MeteorClient.EVENT_BUS;
 
+/*
+* ported to 1.19 by @Wide_Cat
+*/
+
+
+
 public class ElytraBot extends Module {
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
     private final SettingGroup sgElytraFly = settings.createGroup("Flight");
